@@ -15,6 +15,14 @@ public class UIManager : MonoBehaviour
         OpenWindow(0);
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && game.activeSelf)
+        {
+            OpenWindow(0);
+        }
+    }
+
     public void OpenWindow(int windowIndex)
     {
         if(_last)
