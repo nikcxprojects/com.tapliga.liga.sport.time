@@ -38,7 +38,7 @@ public class SettingsManager : MonoBehaviour
             string target = sfx.mute ? disable : active;
             string status = sfx.mute ? "OFF" : "ON";
 
-            sfxBtn.GetComponent<Text>().text = $"SFX          <color={target}>{status}</color>";
+            sfxBtn.GetComponent<Text>().text = $"SFX           <color={target}>{status}</color>";
         });
 
         vibtoBtn.onClick.AddListener(() =>
@@ -48,7 +48,7 @@ public class SettingsManager : MonoBehaviour
             string target = VibraEnable ? disable : active;
             string status = VibraEnable ? "OFF" : "ON";
 
-            vibtoBtn.GetComponent<Text>().text = $"VIBRA      <color={target}>{status}</color>";
+            vibtoBtn.GetComponent<Text>().text = $"VIBRA       <color={target}>{status}</color>";
         });
     }
 }

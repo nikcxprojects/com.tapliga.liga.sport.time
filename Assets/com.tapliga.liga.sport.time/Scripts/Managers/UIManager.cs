@@ -3,8 +3,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private int score = 0;
-    private float currentTime = 60;
+    private int score ;
+    private float currentTime;
+    private const float initTime = 60;
 
     private GameObject _last = null;
 
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Escape) && game.activeSelf)
         {
+            Destroy(FindObjectOfType<Ball>().gameObject);
             OpenWindow(0);
         }
 
@@ -43,8 +45,9 @@ public class UIManager : MonoBehaviour
             currentTime -= Time.deltaTime;
             if(currentTime <=0)
             {
-                currentTime = 0;
-                timerText.text = string.Format("{0:00}:{1:00}", 0, 0);
+                Destroy(FindObjectOfType<Ball>().gameObject);
+                OpenWindow(4);
+
                 return;
             }
 
@@ -58,7 +61,9 @@ public class UIManager : MonoBehaviour
     private void UpdateScore()
     {
         score += Random.Range(2, 6);
+
         scoreText.text = $"{score}";
+        finalScoreText.text = scoreText.text;
     }
 
     public void OpenWindow(int windowIndex)
@@ -80,7 +85,10 @@ public class UIManager : MonoBehaviour
         _last.SetActive(true);
         if(windowIndex == 3)
         {
-            currentTime = 60;
+            score = 0;
+            currentTime = initTime;
+
+            scoreText.text = $"{score}";
             GameManager.Instance.StartGame();
         }
     }
