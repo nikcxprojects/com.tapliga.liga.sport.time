@@ -2097,7 +2097,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -2705,13 +2705,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: fbc1aba667d3edf468d6480d66a7798b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.187
+  m_Volume: 0.442
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 82
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -3851,6 +3851,7 @@ MonoBehaviour:
   result: {fileID: 1232047749}
   scoreText: {fileID: 424504394}
   finalScoreText: {fileID: 1045273570}
+  timerText: {fileID: 760339654}
 --- !u!1 &1671081007
 GameObject:
   m_ObjectHideFlags: 0

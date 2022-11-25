@@ -17,7 +17,7 @@ public class SettingsManager : MonoBehaviour
     private const string active = "#FFEB00";
     private const string disable = "#0F4839";
 
-    public static bool VibraEnable { get; set; } = false;
+    public static bool VibraEnable { get; set; } = true;
 
     private void Start()
     {

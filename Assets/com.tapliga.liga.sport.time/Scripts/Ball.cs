@@ -26,6 +26,11 @@ public class Ball : MonoBehaviour
         Collider.enabled = false;
         Renderer.enabled = false;
 
+        if(SettingsManager.VibraEnable)
+        {
+            Handheld.Vibrate();
+        }
+
         OnPressed?.Invoke();
     }
 

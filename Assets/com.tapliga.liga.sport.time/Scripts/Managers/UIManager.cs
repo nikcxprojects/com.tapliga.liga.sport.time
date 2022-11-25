@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     private int score = 0;
+    private float currentTime = 60;
+
     private GameObject _last = null;
 
     [SerializeField] GameObject menu;
@@ -15,6 +17,9 @@ public class UIManager : MonoBehaviour
     [Space(10)]
     [SerializeField] Text scoreText;
     [SerializeField] Text finalScoreText;
+
+    [Space(10)]
+    [SerializeField] Text timerText;
 
     private void Awake()
     {
@@ -32,11 +37,27 @@ public class UIManager : MonoBehaviour
         {
             OpenWindow(0);
         }
+
+        if(game.activeSelf)
+        {
+            currentTime -= Time.deltaTime;
+            if(currentTime <=0)
+            {
+                currentTime = 0;
+                timerText.text = string.Format("{0:00}:{1:00}", 0, 0);
+                return;
+            }
+
+            int minutes = Mathf.FloorToInt(currentTime / 60);
+            int seconds = Mathf.FloorToInt(currentTime % 60);
+
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
     }
 
     private void UpdateScore()
     {
-        score += Random.Range(10, 25);
+        score += Random.Range(2, 6);
         scoreText.text = $"{score}";
     }
 
@@ -59,6 +80,7 @@ public class UIManager : MonoBehaviour
         _last.SetActive(true);
         if(windowIndex == 3)
         {
+            currentTime = 60;
             GameManager.Instance.StartGame();
         }
     }
