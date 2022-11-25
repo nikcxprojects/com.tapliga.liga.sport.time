@@ -1,9 +1,20 @@
 using UnityEngine;
-using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get => FindObjectOfType<GameManager>(); }
-    public static Action OnGameStarted { get; set; } = delegate { };
-    public static Action OnGameFinished { get; set; } = delegate { };
+
+    private Ball BallPrefab { get; set; }
+    private Transform BallParent { get; set; }
+
+    private void Awake()
+    {
+        BallPrefab = Resources.Load<Ball>("ball");
+        BallParent = GameObject.Find("Environment").transform;
+    }
+
+    public void StartGame()
+    {
+        Instantiate(BallPrefab, BallParent).Init();
+    }
 }
