@@ -1833,8 +1833,6 @@ MonoBehaviour:
   sfx: {fileID: 1118199543}
   sfxBtn: {fileID: 964811453}
   vibtoBtn: {fileID: 2010125856}
-  active: {r: 1, g: 0.92156863, b: 0, a: 1}
-  disable: {r: 0.05882353, g: 0.28235295, b: 0.22352941, a: 1}
 --- !u!1 &1065737083
 GameObject:
   m_ObjectHideFlags: 0
@@ -2047,8 +2045,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: e41291be620cf8c49947cc3f4826e901, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
