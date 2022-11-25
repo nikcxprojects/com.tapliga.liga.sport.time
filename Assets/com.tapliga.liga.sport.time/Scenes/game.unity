@@ -1951,7 +1951,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 156.5613, y: -36.7466}
+  m_AnchoredPosition: {x: 156.5613, y: -36.746597}
   m_SizeDelta: {x: 313.1226, y: 73.4932}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1072920774
@@ -2934,7 +2934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -100.2}
+  m_AnchoredPosition: {x: 0, y: -100.20001}
   m_SizeDelta: {x: 274, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1452101266
@@ -3849,6 +3849,8 @@ MonoBehaviour:
   top: {fileID: 1065737083}
   game: {fileID: 1520864629}
   result: {fileID: 1232047749}
+  scoreText: {fileID: 424504394}
+  finalScoreText: {fileID: 1045273570}
 --- !u!1 &1671081007
 GameObject:
   m_ObjectHideFlags: 0
@@ -4897,7 +4899,7 @@ Canvas:
   m_GameObject: {fileID: 2139180294}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0

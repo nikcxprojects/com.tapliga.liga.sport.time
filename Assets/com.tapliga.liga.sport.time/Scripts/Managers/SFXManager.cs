@@ -6,6 +6,14 @@ public class SFXManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        Ball.OnPressed += () =>
+        {
+            if(sfxSource.isPlaying)
+            {
+                sfxSource.Stop();
+            }
+
+            sfxSource.Play();
+        };
     }
 }

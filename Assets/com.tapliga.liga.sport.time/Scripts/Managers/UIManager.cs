@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    private int score = 0;
     private GameObject _last = null;
 
     [SerializeField] GameObject menu;
@@ -10,9 +12,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject game;
     [SerializeField] GameObject result;
 
+    [Space(10)]
+    [SerializeField] Text scoreText;
+    [SerializeField] Text finalScoreText;
+
     private void Awake()
     {
         OpenWindow(0);
+
+        Ball.OnPressed += () =>
+        {
+            UpdateScore();
+        };
     }
 
     private void Update()
@@ -21,6 +32,12 @@ public class UIManager : MonoBehaviour
         {
             OpenWindow(0);
         }
+    }
+
+    private void UpdateScore()
+    {
+        score += Random.Range(10, 25);
+        scoreText.text = $"{score}";
     }
 
     public void OpenWindow(int windowIndex)
@@ -40,5 +57,9 @@ public class UIManager : MonoBehaviour
         }
 
         _last.SetActive(true);
+        if(windowIndex == 3)
+        {
+            GameManager.Instance.StartGame();
+        }
     }
 }
