@@ -45,8 +45,8 @@ public class SettingsManager : MonoBehaviour
         {
             VibraEnable = !VibraEnable;
 
-            string target = VibraEnable ? disable : active;
-            string status = VibraEnable ? "OFF" : "ON";
+            string target = VibraEnable ? active : disable;
+            string status = VibraEnable ? "ONN" : "OFF";
 
             vibtoBtn.GetComponent<Text>().text = $"VIBRA       <color={target}>{status}</color>";
         });
