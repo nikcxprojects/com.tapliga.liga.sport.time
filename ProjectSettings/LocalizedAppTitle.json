@@ -1,0 +1,37 @@
+{
+    "LocalizeAppNameOnAndroid": true,
+    "LocalizeAppIconOnAndroid": true,
+    "LocalizeAppNameOniOS": false,
+    "LocalizeAppIconOniOS": false,
+    "LocalizedData": [
+        {
+            "LanguageCode": "EN",
+            "AppName": "Tap Liga",
+            "AppShortName": "",
+            "AndroidIcon": {
+                "fileID": 2800000,
+                "guid": "f1459032f05acc84599ecba79907d897",
+                "type": 3
+            },
+            "iOSIcon": {
+                "instanceID": 0
+            }
+        },
+        {
+            "LanguageCode": "RU",
+            "AppName": "Liga",
+            "AppShortName": "",
+            "AndroidIcon": {
+                "fileID": 2800000,
+                "guid": "738eb9173dcdf27408a97c3cf6834d8b",
+                "type": 3
+            },
+            "iOSIcon": {
+                "instanceID": 0
+            }
+        }
+    ],
+    "DefaultLocalizedData": 0,
+    "AndroidNameResource": "app_name",
+    "AndroidIconResource": "app_icon"
+}
