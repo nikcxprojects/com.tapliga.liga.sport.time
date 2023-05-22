@@ -4,16 +4,19 @@ using Unity.Services.Core;
 using Unity.Services.RemoteConfig;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Viewer : MonoBehaviour
 {
-    bool Sim_Enable
+    private UniWebView View { get; set; }
+
+    private bool Sim_Enable
     {
         get => Simcard.GetTwoSmallLetterCountryCodeISO().Length > 0;
     }
 
-    delegate void ResultAction(bool IsGame);
-    event ResultAction OnResultActionEvent;
+    private delegate void ResultAction(bool IsGame);
+    private event ResultAction OnResultActionEvent;
 
     private string url;
 
@@ -23,6 +26,8 @@ public class Viewer : MonoBehaviour
 
     async Task Awake()
     {
+        OnResultActionEvent += Viewer_OnResultActionEvent;
+
         if (!Sim_Enable)
         {
             OnResultActionEvent?.Invoke(true);
@@ -31,14 +36,8 @@ public class Viewer : MonoBehaviour
         
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            GameObject.Find("no connection").GetComponent<SpriteRenderer>().enabled = true;
+            GameObject.Find("no connection").GetComponent<Image>().enabled = true;
             return;
-        }
-
-        Application.deepLinkActivated += OnDeepLinkActivated;
-        if (!string.IsNullOrEmpty(Application.absoluteURL))
-        {
-            OnDeepLinkActivated(Application.absoluteURL);
         }
 
         if (Utilities.CheckForInternetConnection())
@@ -55,7 +54,8 @@ public class Viewer : MonoBehaviour
             return;
         }
 
-        Init();
+        CacheComponents();
+        View.Load(url);
     }
 
     async Task InitializeRemoteConfigAsync()
@@ -68,11 +68,6 @@ public class Viewer : MonoBehaviour
         {
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
-    }
-
-    private void OnEnable()
-    {
-        OnResultActionEvent += Viewer_OnResultActionEvent;
     }
 
     private void OnDisable()
@@ -88,26 +83,79 @@ public class Viewer : MonoBehaviour
         }
     }
 
-    private void OnDeepLinkActivated(string url)
+    private void CacheComponents()
     {
-        if(url.Contains("game"))
+        View = gameObject.AddComponent<UniWebView>();
+        Camera.main.backgroundColor = Color.black;
+
+        View.ReferenceRectTransform = GameObject.Find("rect").GetComponent<RectTransform>();
+
+        var safeArea = Screen.safeArea;
+        var anchorMin = safeArea.position;
+        var anchorMax = anchorMin + safeArea.size;
+
+        anchorMin.x /= Screen.width;
+        anchorMin.y /= Screen.height;
+        anchorMax.x /= Screen.width;
+        anchorMax.y /= Screen.height;
+
+        View.ReferenceRectTransform.anchorMin = anchorMin;
+        View.ReferenceRectTransform.anchorMax = anchorMax;
+
+        View.SetShowSpinnerWhileLoading(false);
+        View.BackgroundColor = Color.black;
+
+        View.OnOrientationChanged += (v, o) =>
         {
-            OnResultActionEvent?.Invoke(true);
-        }
-    }
+            Screen.fullScreen = o == ScreenOrientation.Landscape;
 
-    private void Init()
-    {
-        Screen.fullScreen = false;
-        Application.OpenURL(url);
-    }
+            var safeArea = Screen.safeArea;
+            var anchorMin = safeArea.position;
+            var anchorMax = anchorMin + safeArea.size;
 
+            anchorMin.x /= Screen.width;
+            anchorMin.y /= Screen.height;
+            anchorMax.x /= Screen.width;
+            anchorMax.y /= Screen.height;
 
-    private void OnApplicationFocus(bool focus)
-    {
-        if (focus && string.IsNullOrEmpty(Application.absoluteURL))
+            v.ReferenceRectTransform.anchorMin = anchorMin;
+            v.ReferenceRectTransform.anchorMax = anchorMax;
+
+            View.UpdateFrame();
+        };
+
+        View.OnShouldClose += (v) =>
         {
-            Init();
-        }
+            return false;
+        };
+
+        View.OnPageStarted += (browser, url) =>
+        {
+            var safeArea = Screen.safeArea;
+            var anchorMin = safeArea.position;
+            var anchorMax = anchorMin + safeArea.size;
+
+            anchorMin.x /= Screen.width;
+            anchorMin.y /= Screen.height;
+            anchorMax.x /= Screen.width;
+            anchorMax.y /= Screen.height;
+
+            View.ReferenceRectTransform.anchorMin = anchorMin;
+            View.ReferenceRectTransform.anchorMax = anchorMax;
+
+            View.Show();
+            View.UpdateFrame();
+        };
+
+        View.OnPageFinished += (browser, code, url) =>
+        {
+
+        };
+
+        View.AddUrlScheme("https://");
+        View.OnMessageReceived += (view, message) =>
+        {
+            Debug.Log($"message: {message}");
+        };
     }
 }
